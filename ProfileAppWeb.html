@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AnnieGram</title>
+
+  <style>
+    body {
+      text-align: center;
+      background: mediumorchid;
+    }
+
+    #profile1 {
+      float: left;
+      width: 50%;
+      background-color: lightskyblue;
+      color: rebeccapurple;
+    }
+
+    #profile2 {
+      float: left;
+      width: 50%;
+      background-color: mediumpurple;
+      color: lightskyblue;
+    }
+
+    #embed {
+      background-color: lavender;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div>
+    <main>
+      <h1><b>Welcome to AnnieGram!</b></h1>
+      <img
+        src="https://github.com/annliangg/profileAppWeb/blob/1debb0c7fd9317da116b2b5cf682deb350f4c707/AnnieGramBanner.png"
+        height="200">
+      <h2>Take a look at some example profiles below from AnnieGram</h2>
+    </main>
+  </div>
+
+  <div id="profile1">
+    <h1>Profile Example #1</h1>
+    <h4 id="name1" type="text">Example name</h4>
+    <h4 id="age1" type="number">Age: Example age</h4>
+    <h4 id="birthday1" type="text">Birthday: Example Birthday</h4>
+    <h4 id="state1" type="text">Home State: Example State</h4>
+    <h4>Here's a picture of them!</h4>
+    <img id="image1" src="" width="300">
+
+  </div>
+
+  <div id="profile2">
+    <h1>Profile Example #2</h1>
+    <h4 id="name2" type="text">Example name</h4>
+    <h4 id="age2" type="age">Age: Example age</h4>
+    <h4 id="birthday2" type="text">Birthday: Example Birthday</h4>
+    <h4 id="state2" type="text">Home State: Example State</h4>
+    <h4>Here's a picture of them!</h4>
+    <img id="image2" src="" width="300">
+
+  </div>
+
+  <div id="embed">
+    <h1><b>Test the app out for yourself!</b></h1>
+    <iframe src="https://thunkable.site/w/XsU-SHq-7-lcABb4_Ty87" title="AnnieGram" height=725 width=400
+      frameBorder="0"></iframe>
+  </div>
+
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyChJ7dAttgUGDWpDIVTJ5zN9mHdGn4r8pM",
+      authDomain: "profile-app-3108d.firebaseapp.com",
+      databaseURL: "https://profile-app-3108d-default-rtdb.firebaseio.com",
+      projectId: "profile-app-3108d",
+      storageBucket: "profile-app-3108d.appspot.com",
+      messagingSenderId: "315592823016",
+      appId: "1:315592823016:web:150a87eccbff95c1d7395d",
+      measurementId: "G-H771RJE0CH"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    import { getDatabase, ref, get, set, child, update, remove }
+      from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+
+    const db = getDatabase();
+
+    var name1 = document.querySelector("#name1");
+    var name2 = document.querySelector("name2");
+    var age1 = document.querySelector("#age1");
+    var age2 = document.querySelector("#age2");
+    var birthday1 = document.querySelector("#birthday1");
+    var birthday2 = document.querySelector("#birthday2");
+    var state1 = document.querySelector("#state1");
+    var state2 = document.querySelector("#state2");
+    var image1 = document.querySelector("#image1");
+    var image2 = document.querySelector("#image2");
+
+
+    function setData(ID, exampleNum) {
+      const dbref = ref(db);
+
+      get(child(dbref, ID))
+        .then((snapshot) => {
+          if (snapshot.exists()) {
+            window["name" + exampleNum].innerHTML = snapshot.val().name;
+            window["age" + exampleNum].innerHTML = "Age: " + snapshot.val().age;
+            window["birthday" + exampleNum].innerHTML = "Birthday: " + snapshot.val().birthday;
+            window["state" + exampleNum].innerHTML = "Home State: " + snapshot.val().state;
+            window["image" + exampleNum].src = snapshot.val().image;
+
+          } else {
+            alert("No data found");
+          }
+        })
+        .catch((error) => {
+          alert(error)
+        })
+
+    }
+
+    setData("1UdWTfqlXNgqgyucQPX24QIvG572", 1);
+    setData("QQPHPoZTk0huMGMgqG5T9VHEpgG3", 2);
+
+  </script>
+</body>
+
+</html>
